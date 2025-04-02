@@ -1,6 +1,18 @@
 const { Router } = require('express');
 const controller = require('../controllers/controller')
 const router = Router();
+const passport = require('passport');
+const session = require('express-session');
+
+// function to act as an authentication check
+function checkAuthentication(req, res, next){
+    if(req.isAuthenticated()) {
+        //req.isAuthenticated() will return true if user is logged in
+        next();
+    } else {
+        res.redirect("/login");
+    }
+}
 
 // GET requests
 router.get("/", controller.indexPageGet);

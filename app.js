@@ -38,6 +38,12 @@ app.post('/login',
     res.redirect('/');
 });
 
+// so I can use locals.currentUser and access it in EJS files without having to pass it in a render each time
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+  });
+
 // let them log-out as well - passport has .logout() built in
 app.get("/logout", (req, res, next) => {
     req.logout((err) => {
