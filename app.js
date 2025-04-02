@@ -6,6 +6,7 @@ const path = require('path')
 const app = express();
 const router = require('./routes/router')
 
+
 // set directory folder for CSS & images
 app.use('/static', express.static('public'))
 
