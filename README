@@ -1,0 +1,5 @@
+This is a template for an express, passport, PSQL, and Prisma project.
+
+--------------
+
+You'll need to make a .env with a DB_STRING that corresponds to your PSQL database
