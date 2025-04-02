@@ -6,7 +6,6 @@ const path = require('path')
 const app = express();
 const router = require('./routes/router')
 
-
 // set directory folder for CSS & images
 app.use('/static', express.static('public'))
 
@@ -20,5 +19,5 @@ app.use(express.urlencoded({ extended: true }));
 // send to router
 app.use("/", router);
 
-console.log("Server live at localhost:3000!");
+console.log("Server live at http://localhost:3000 !");
 app.listen(3000);
