@@ -10,6 +10,18 @@ function signUpPageGet(req, res) {
     res.render("signup")
 }
 
+function loginPageGet(req, res) {
+    res.render("login")
+}
+
+function loginFailPageGet(req, res) {
+    res.render("login-fail")
+}
+
+function loginSuccessPageGet(req, res) {
+    res.render("login-success")
+}
+
 //---------------------------//
 
 // POST requests
@@ -18,7 +30,7 @@ async function userSignUpPost(req, res) {
     const username = req.body.username;
     const password = await bcrypt.hash(req.body.password, 10);
     try {
-        prismaClient.createUser(email, username, password);
+        prismaClient.createUser(username, email, password);
     } catch(error) {
         console.log(error);
         const message = "Sorry, you couldn't sign up this time."
@@ -31,5 +43,8 @@ async function userSignUpPost(req, res) {
 module.exports = {
     indexPageGet,
     userSignUpPost,
-    signUpPageGet
+    signUpPageGet,
+    loginPageGet,
+    loginFailPageGet,
+    loginSuccessPageGet
 }

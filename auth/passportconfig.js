@@ -1,16 +1,19 @@
 const LocalStrategy = require('passport-local');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
+const prismaClient = require('../db/prisma')
 
+// we're using email which =/= username, so customFields is needed
 const customFields = {
     usernameField: 'email',
     passwordField: 'password'
 }
 
-function verifyPassword(email, password, done) {
+async function verifyPassword(email, password, done) {
     // load in the user from the email entered
-    const user = prisma.findUser(email);
-
+    console.log(email, password);
+    const user = await prismaClient.findUser(email);
+    console.log(user);
     // if they don't exist (emails don't match) 
     if (!user) {
         console.log("Error, user not found");
@@ -27,14 +30,20 @@ function verifyPassword(email, password, done) {
     }
 }
 
-const strategy = new LocalStrategy(verifyPassword, customFields);
+// strategy defined
+const strategy = new LocalStrategy(customFields, verifyPassword);
 passport.use(strategy)
 
-app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/login-fail', successRedirect: '/login-success' }),
-  function(req, res) {
-    res.redirect('/');
+// passport sessions functions (from docs, fine to copy paste, don't need to call them)
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  
+passport.deserializeUser(async (id, done) => {
+try {
+    const user = await prismaClient.getUserByID(id);
+    done(null, user);
+} catch(err) {
+    done(err);
+}
 });
-
-// passport serialize user function
-// passport deserialize user function

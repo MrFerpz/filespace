@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
 async function createUser(username, email, password) {
-  return await prisma.User.create({
+  return await prisma.user.create({
     data: {
       name: username,
       email: email,
@@ -13,7 +13,7 @@ async function createUser(username, email, password) {
 }
 
 async function findUser(email) {
-    const user = await prisma.User.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             email: email,
         }
@@ -21,4 +21,15 @@ async function findUser(email) {
     return user
 }
 
-module.exports = { prisma, createUser, findUser }
+// async function flushDB() {
+//   await prisma.user.deleteMany({});
+// }
+
+async function getUserByID(id) {
+  const user = await prisma.user.findUnique({
+    where: { id: id }
+  })
+  return user
+}
+
+module.exports = { prisma, createUser, findUser, getUserByID }
