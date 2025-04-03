@@ -3,19 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>FileSpace</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Welcome<% if (currentUser) {%>,
-        <%= currentUser.name %>!
-    <% } %>
-    </h1>
+    <div class="header">
+        <div class="title">FileSpace</div>
+        <a href="/">Home</a>
+        <a href="files">Your Files</a>
+    </div>
 
-    <% if (message) { %>
-        <div><%= message %></div>
+    <div class="separator"></div>
+
+    <% if(currentUser) { %>
+    <h1 class="welcome">Welcome,<%= currentUser.name %>!</h1>
     <% } %>
 
-    <a href="signup">Sign Up</a><br>
-    <a href="login">Log In</a>
+    <% if (!currentUser) { %>
+        <div class="centre-flex-container">
+            <div class="opening-container">
+                <div class="motto">Your all-in-one file storage solution.</div>
+                <a class="signup-btn" href="signup">Sign up</a>
+                <a class="login-btn" href="login">Login</a>
+            </div>
+        </div>
+   <% } %>
+
+    <div class="feature-card-container">
+        <div class="feature-card">
+            <div class="feature-title">FAST</div>
+            <div class="feature-text">FileSpace is 11x faster than alternative cloud storage products.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-title">CONVENIENT</div>
+            <div class="feature-text">Long gone are the days of losing important files. Access everything you need in one place.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-title">LIGHT</div>
+            <div class="feature-text">No fluff. Just files. FileSpace is the most efficient online storage option.</div>
+        </div>
+    </div>
 </body>
 </html>
