@@ -9,10 +9,13 @@
 <body>
     <div class="header">
         <div class="title">FileSpace</div>
-        <a href="/">Home</a>
-        <a href="/files">Your Files</a>
-        <a class="logout-btn" href="/logout">Logout</a>
+        <a class="btn home-btn" href="/">Home</a>
+        <a class="btn files-btn" href="/files">Your Files</a>
+        <% if(currentUser) { %>
+        <a class="btn logout-btn" href="/logout">Logout</a>
+         <% } %>
     </div>
+
     <% if (!folders) { %>
         <div>Nothing to see here!</div>
         <div>Start by <a href="/new-folder">adding a folder.</a></div>
@@ -23,7 +26,7 @@
         <div class="folder-grid">
             <% folders.forEach((folder) => { %>
                 <div class="folder-card">
-                    <img class="folder-img" src="/static/folder.png">
+                    <a href="files/folder/<%= folder %>"><img class="folder-img" src="/static/folder.png"></a>
                     <div class="folder-text"><%= folder %></div>
                 </div>
             <% }) %>
@@ -32,6 +35,6 @@
     <% } %>
     
     <div class="separator"></div>
-    <a href="/new-folder">New Folder</a>
+    <a class="btn" href="/new-folder">New Folder</a>
 </body>
 </html>

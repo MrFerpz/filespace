@@ -23,7 +23,7 @@ function loginSuccessPageGet(req, res) {
 }
 
 function filePageGet(req, res) {
-    res.render("files", {folders: ["Recipes", "Films", "Work"]});
+    res.render("files", {folders: ["recipes", "films", "work", "repos", "life admin"]});
 }
 
 function newFolderGet(req, res) {
