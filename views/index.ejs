@@ -9,8 +9,11 @@
 <body>
     <div class="header">
         <div class="title">FileSpace</div>
-        <a href="/">Home</a>
-        <a href="files">Your Files</a>
+        <a class="home-btn" href="/">Home</a>
+        <a class="files-btn" href="/files">Your Files</a>
+        <% if(currentUser) { %>
+        <a class="logout-btn" href="/logout">Logout</a>
+         <% } %>
     </div>
 
     <div class="separator"></div>

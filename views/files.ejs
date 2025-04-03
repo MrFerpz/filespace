@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your FileSpace</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="title">FileSpace</div>
+        <a href="/">Home</a>
+        <a href="/files">Your Files</a>
+        <a class="logout-btn" href="/logout">Logout</a>
+    </div>
+    <% if (!folders) { %>
+        <div>Nothing to see here!</div>
+        <div>Start by <a href="/new-folder">adding a folder.</a></div>
+    <% } %>
+
+    <% if (folders) { %>
+        <div class="folder-grid-container">
+        <div class="folder-grid">
+            <% folders.forEach((folder) => { %>
+                <div class="folder-card">
+                    <img class="folder-img" src="/static/folder.png">
+                    <div class="folder-text"><%= folder %></div>
+                </div>
+            <% }) %>
+        </div>
+        </div>
+    <% } %>
+    
+    <div class="separator"></div>
+    <a href="/new-folder">New Folder</a>
+</body>
+</html>

@@ -22,6 +22,14 @@ function loginSuccessPageGet(req, res) {
     res.render("login-success")
 }
 
+function filePageGet(req, res) {
+    res.render("files", {folders: ["Recipes", "Films", "Work"]});
+}
+
+function newFolderGet(req, res) {
+    res.render("new-folder")
+}
+
 //---------------------------//
 
 // POST requests
@@ -46,5 +54,7 @@ module.exports = {
     signUpPageGet,
     loginPageGet,
     loginFailPageGet,
-    loginSuccessPageGet
+    loginSuccessPageGet,
+    filePageGet,
+    newFolderGet
 }

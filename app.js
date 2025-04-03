@@ -27,7 +27,7 @@ require('./auth/passportconfig');
 app.use(
   expressSession({
     cookie: {
-     maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+     maxAge: 7 * 24 * 60 * 60 * 1000 // 1 week expiry
     },
     secret: 'a santa at nasa',
     resave: true,
@@ -35,7 +35,7 @@ app.use(
     store: new PrismaSessionStore(
       new PrismaClient(),
       {
-        checkPeriod: 2 * 60 * 1000, // 2 hours 
+        checkPeriod: 2 * 60 * 1000,
         dbRecordIdIsSessionId: true,
         dbRecordIdFunction: undefined,
       }

@@ -30,9 +30,26 @@ a:hover {
     height: 100px;
     display: grid;
     gap: 10px;
-    grid-template-columns: 4fr 1fr 1fr;
+    grid-template-columns: 5fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     align-items: center;
     justify-content: center;
+}
+
+.home-btn {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.logout-btn {
+    grid-column: 4;
+    grid-row: 1;
+    background-color: rgb(146, 0, 0);
+}
+
+.files-btn {
+    grid-column: 2;
+    grid-row: 1;
 }
 
 .title {
@@ -111,4 +128,32 @@ a:hover {
 
 .separator {
     height: 80px;
+}
+
+.folder-img {
+    width: 100px;
+}
+
+.folder-img:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.folder-card {
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+}
+
+.folder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.folder-grid-container {
+    width: 80vw;
+    height: 50vh;
+    margin: 40px auto;
 }
