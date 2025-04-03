@@ -29,5 +29,6 @@ router.get("/files/folder/:foldername", controller.filesPageGet)
 // POST requests
 router.post("/signup", controller.userSignUpPost);
 router.post("/new-file", upload.single('upload-file'), controller.filesPageGet);
+router.post("/new-folder", controller.newFolderPost);
 
 module.exports = router

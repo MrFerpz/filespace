@@ -24,7 +24,7 @@ model User {
 model Folders {
   id         Int @id @default(autoincrement())
   author     User @relation(fields: [authorID], references: [id])
-  authorID   Int @unique
+  authorID   Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   title      String

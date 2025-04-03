@@ -22,10 +22,10 @@ function loginSuccessPageGet(req, res) {
     res.render("login-success")
 }
 
-function foldersPageGet(req, res) {
-    res.render("folders", 
-    // replace with DB call shortly
-    {folders: ["recipes", "films", "work", "repos", "life admin"]});
+async function foldersPageGet(req, res) {
+    const authorID = req.user.id;
+    const folders = await prismaClient.getFolders(authorID);
+    res.render("folders", {folders: folders});
 }
 
 function newFolderGet(req, res) {
@@ -58,6 +58,16 @@ async function userSignUpPost(req, res) {
     res.render("index", {message: message});
 }
 
+async function newFolderPost(req, res) {
+    const authorID = req.user.id;
+    const title = req.body.title;
+
+    await prismaClient.newFolder(authorID, title);
+    const folders = await prismaClient.getFolders(authorID);
+    console.log(folders);
+    res.render("folders", {folders: folders})
+}
+
 module.exports = {
     indexPageGet,
     userSignUpPost,
@@ -68,4 +78,5 @@ module.exports = {
     foldersPageGet,
     filesPageGet,
     newFolderGet,
+    newFolderPost
 }

@@ -32,4 +32,20 @@ async function getUserByID(id) {
   return user
 }
 
-module.exports = { prisma, createUser, findUser, getUserByID }
+async function newFolder(authorID, title) {
+  return await prisma.folders.create({
+    data: {
+      title: title,
+      authorID: authorID
+    }
+  })
+}
+
+async function getFolders(authorID) {
+  const folders = await prisma.folders.findMany({
+    where: {authorID: authorID}
+  })
+  return folders
+}
+
+module.exports = { prisma, createUser, findUser, getUserByID, getFolders, newFolder }
