@@ -161,3 +161,16 @@ body {
     height: 50vh;
     margin: 40px auto;
 }
+
+.file-form-container {
+    margin: 0 auto;
+    padding: 25px;
+    width: 20vw;
+    background-color: white;
+    box-shadow: 2px 2px rgb(202, 201, 201);
+    border-radius: 10px;
+}
+
+.file-label, .file-choose {
+    margin-bottom: 10px;
+}

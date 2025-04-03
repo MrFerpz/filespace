@@ -20,7 +20,8 @@
 
     <% if (!files) { %>
         <div>Nothing to see here!</div>
-        <div>Start by <a href="/new-file">adding a file.</a></div>
+        <div class="separator"></div>
+        <a class="btn" href="/new-file">Upload File</a>
     <% } %>
 
     <% if (files) { %>
@@ -37,6 +38,11 @@
     <% } %>
     
     <div class="separator"></div>
-    <a class="btn" href="/new-folder">New Folder</a>
+    <div class="file-form-container">
+        <form action="/new-file" method="post" enctype="multipart/form-data">
+            <input class="file-choose" type="file" name="upload-file"/><br>
+            <button type="submit">Complete upload</button>
+        </form>
+    </div>
 </body>
 </html>

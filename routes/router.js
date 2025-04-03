@@ -3,6 +3,8 @@ const controller = require('../controllers/controller')
 const router = Router();
 const passport = require('passport');
 const session = require('express-session');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 // function to act as an authentication check
 function checkAuthentication(req, res, next){
@@ -26,5 +28,6 @@ router.get("/files/folder/:foldername", controller.filesPageGet)
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);
+router.post("/new-file", upload.single('upload-file'), controller.filesPageGet);
 
 module.exports = router

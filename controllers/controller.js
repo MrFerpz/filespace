@@ -67,5 +67,5 @@ module.exports = {
     loginSuccessPageGet,
     foldersPageGet,
     filesPageGet,
-    newFolderGet
+    newFolderGet,
 }

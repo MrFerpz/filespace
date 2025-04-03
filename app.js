@@ -7,6 +7,8 @@ const app = express();
 const router = require('./routes/router')
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 // set directory folder for CSS & images
 app.use('/static', express.static('public'))

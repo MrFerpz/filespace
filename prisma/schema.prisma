@@ -18,11 +18,33 @@ model User {
   email     String  @unique
   name      String
   password  String
+  folders   Folders[]
+}
+
+model Folders {
+  id         Int @id @default(autoincrement())
+  author     User @relation(fields: [authorID], references: [id])
+  authorID   Int @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  title      String
+  files      Files[]
+}
+
+model Files {
+  id              Int @id @default(autoincrement())
+  title           String
+  url             String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  size            String?
+  parentFolder    Folders @relation(fields: [parentFolderID], references: [id])
+  parentFolderID  Int
 }
 
 model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String   
+  id          String   @id
+  sid         String   @unique
+  data        String   
   expiresAt   DateTime
 }
