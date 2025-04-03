@@ -1,10 +1,12 @@
 require('dotenv').config()
 const express = require('express');
 const passport = require('passport');
-const session = require('express-session');
+const expressSession = require('express-session');
 const path = require('path')
 const app = express();
 const router = require('./routes/router')
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
+const { PrismaClient } = require('@prisma/client');
 
 // set directory folder for CSS & images
 app.use('/static', express.static('public'))
@@ -21,13 +23,25 @@ app.use(express.urlencoded({ extended: true }));
 // load-in the config
 require('./auth/passportconfig');
 
-// set-up express session for Session ID (SID) cookie
-app.use(session(
-    {secret: "secret words shhh!!",
-    resave: false,
+// set-up express session for Session ID (SID) cookie & allow User database interactions
+app.use(
+  expressSession({
+    cookie: {
+     maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+    },
+    secret: 'a santa at nasa',
+    resave: true,
     saveUninitialized: true,
-    cookie: {maxAge: 60 * 60 * 24 * 1000}}
-))
+    store: new PrismaSessionStore(
+      new PrismaClient(),
+      {
+        checkPeriod: 2 * 60 * 1000, // 2 hours 
+        dbRecordIdIsSessionId: true,
+        dbRecordIdFunction: undefined,
+      }
+    )
+  })
+);
 
 app.use(passport.session())
 
