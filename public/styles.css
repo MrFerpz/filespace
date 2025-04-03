@@ -134,29 +134,29 @@ body {
     height: 80px;
 }
 
-.folder-img {
+.folder-img, .file-img {
     width: 100px;
 }
 
-.folder-img:hover {
+.folder-img:hover, .file-img:hover {
     opacity: 80%;
     cursor: pointer;
 }
 
-.folder-card {
+.folder-card, .file-card {
     padding: 20px;
     margin: 10px;
     text-align: center;
 }
 
-.folder-grid {
+.folder-grid, .file-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 30px;
 }
 
-.folder-grid-container {
+.folder-grid-container, .file-grid-container {
     width: 80vw;
     height: 50vh;
     margin: 40px auto;

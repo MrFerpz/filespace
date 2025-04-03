@@ -20,8 +20,9 @@ router.get("/signup", controller.signUpPageGet);
 router.get("/login", controller.loginPageGet);
 router.get("/login-fail", controller.loginFailPageGet);
 router.get("/login-success", controller.loginSuccessPageGet);
-router.get("/files", checkAuthentication, controller.filePageGet);
+router.get("/folders", checkAuthentication, controller.foldersPageGet);
 router.get("/new-folder", controller.newFolderGet);
+router.get("/files/folder/:foldername", controller.filesPageGet)
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);

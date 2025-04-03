@@ -22,12 +22,22 @@ function loginSuccessPageGet(req, res) {
     res.render("login-success")
 }
 
-function filePageGet(req, res) {
-    res.render("files", {folders: ["recipes", "films", "work", "repos", "life admin"]});
+function foldersPageGet(req, res) {
+    res.render("folders", 
+    // replace with DB call shortly
+    {folders: ["recipes", "films", "work", "repos", "life admin"]});
 }
 
 function newFolderGet(req, res) {
     res.render("new-folder")
+}
+
+function filesPageGet(req, res) {
+    const title = req.params.foldername;
+    res.render("files",
+    // replace with DB call shortly
+    {files: ["bob paisley"],
+    title: title})
 }
 
 //---------------------------//
@@ -55,6 +65,7 @@ module.exports = {
     loginPageGet,
     loginFailPageGet,
     loginSuccessPageGet,
-    filePageGet,
+    foldersPageGet,
+    filesPageGet,
     newFolderGet
 }

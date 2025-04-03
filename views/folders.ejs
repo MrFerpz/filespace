@@ -16,20 +16,18 @@
          <% } %>
     </div>
 
-    <div><%= title %> folder</div>
-
-    <% if (!files) { %>
+    <% if (!folders) { %>
         <div>Nothing to see here!</div>
-        <div>Start by <a href="/new-file">adding a file.</a></div>
+        <div>Start by <a href="/new-folder">adding a folder.</a></div>
     <% } %>
 
-    <% if (files) { %>
-        <div class="file-grid-container">
-        <div class="file-grid">
-            <% files.forEach((file) => { %>
-                <div class="file-card">
-                    <a href="files/folder/<%= file %>"><img class="file-img" src="/static/file.png"></a>
-                    <div class="file-text"><%= file %></div>
+    <% if (folders) { %>
+        <div class="folder-grid-container">
+        <div class="folder-grid">
+            <% folders.forEach((folder) => { %>
+                <div class="folder-card">
+                    <a href="files/folder/<%= folder %>"><img class="folder-img" src="/static/folder.png"></a>
+                    <div class="folder-text"><%= folder %></div>
                 </div>
             <% }) %>
         </div>
