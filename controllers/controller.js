@@ -78,13 +78,18 @@ async function deleteFolderPost(req, res) {
     res.render("folders", {folders: folders});
 }
 
-// async function updateFolderGet(req, res) {
+async function updateFolderPageGet(req, res) {
+    const folderID = Number(req.params.folderID);
+    const folder = await prismaClient.getFolderByID(folderID);
+    res.render("update-folder", {folder: folder});
+}
 
-// }
-
-// async function updateFolderPost(req, res) {
-
-// }
+async function updateFolderPost(req, res) {
+    const newTitle = req.body.title;
+    const folderID = Number(req.params.folderID);
+    await prismaClient.updateFolderTitle(folderID, newTitle);
+    res.redirect("/folders");
+}
 
 module.exports = {
     indexPageGet,
@@ -97,5 +102,7 @@ module.exports = {
     filesPageGet,
     newFolderPost,
     folderInfoPageGet,
-    deleteFolderPost
+    deleteFolderPost,
+    updateFolderPageGet,
+    updateFolderPost
 }

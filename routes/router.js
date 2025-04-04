@@ -25,12 +25,14 @@ router.get("/login-success", controller.loginSuccessPageGet);
 router.get("/folders", checkAuthentication, controller.foldersPageGet);
 router.get("/folders/:foldername", controller.filesPageGet)
 router.get("/folders/folder-info/:folderID", controller.folderInfoPageGet);
-// router.get("/folders/update/:folderID", controller.folderUpdatePageGet);
+router.get("/folders/folder-info/:folderID/update/", controller.updateFolderPageGet);
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);
 router.post("/new-file", upload.single('upload-file'), controller.filesPageGet);
 router.post("/folders", controller.newFolderPost);
 router.post("/folders/folder-info/:folderID/delete", controller.deleteFolderPost);
+router.post("/folders/folder-info/:folderID/update/", controller.updateFolderPost);
+
 
 module.exports = router

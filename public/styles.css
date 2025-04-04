@@ -264,3 +264,9 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.folder-title-input.folder-info-grid-item {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}

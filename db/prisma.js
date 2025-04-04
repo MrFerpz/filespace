@@ -68,6 +68,17 @@ async function deleteFolderByID(folderID) {
   return
 }
 
+async function updateFolderTitle(folderID, newTitle) {
+  await prisma.folders.update({
+    where : {
+      id: folderID
+    },
+    data : {
+      title: newTitle
+    }
+  })
+}
+
 module.exports = { 
   prisma,
   createUser,
@@ -76,5 +87,6 @@ module.exports = {
   getFolders,
   newFolder,
   getFolderByID,
-  deleteFolderByID
+  deleteFolderByID,
+  updateFolderTitle
 }
