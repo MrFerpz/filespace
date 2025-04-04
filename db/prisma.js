@@ -93,6 +93,24 @@ async function getFile(fileID) {
   return file
 }
 
+async function addFile(folderID, userID, file) {
+  await prisma.folders.update({
+    where: { id: folderID },
+    data: {
+      files: {
+        create: {
+          title: file.originalname,
+          userID: userID,
+          storagePath: `public/${userID}/${file.originalname}`,
+          mimeType: file.mimetype,
+          size: file.size,
+        },
+      },
+    },
+  });
+}
+
+
 module.exports = { 
   prisma,
   createUser,
@@ -104,5 +122,6 @@ module.exports = {
   deleteFolderByID,
   updateFolderTitle,
   getFiles,
-  getFile
+  getFile,
+  addFile
 }

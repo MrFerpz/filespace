@@ -4,7 +4,7 @@ const router = Router();
 const passport = require('passport');
 const session = require('express-session');
 const multer = require('multer');
-const upload = multer({dest: 'uploads/'});
+const upload = multer({ storage: multer.memoryStorage() });
 
 // function to act as an authentication check
 function checkAuthentication(req, res, next){
@@ -30,7 +30,7 @@ router.get("/info/:fileID/:fileTitle", controller.fileInfoPageGet);
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);
-router.post("/new-file", upload.single('upload-file'), controller.filesPageGet);
+router.post("/folders/:folderTitle/:folderID", upload.single('upload-file'), controller.newFilePost);
 router.post("/folders", controller.newFolderPost);
 router.post("/folders/folder-info/:folderID/delete", controller.deleteFolderPost);
 router.post("/folders/folder-info/:folderID/update/", controller.updateFolderPost);

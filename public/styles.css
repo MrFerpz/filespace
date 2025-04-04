@@ -271,4 +271,19 @@ body {
     text-align: center;
 }
 
+.file-img {
+    height: 226.52px;
+    width: 140px;
+    object-fit: cover;
+}
+
+.file-text {
+    padding: 5px;
+}
+
+.file-card {
+    padding: 10px;
+    box-shadow: 2px 2px lightgrey;
+}
+
 /* -------- */

@@ -1,5 +1,9 @@
 const prismaClient = require('../db/prisma');
 const bcrypt = require('bcryptjs');
+const { createClient } = require('@supabase/supabase-js')
+
+// Create a single supabase client for interacting with your database
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_PUBLIC_ANON_KEY);
 
 // GET requests
 function indexPageGet(req, res) {
@@ -30,8 +34,19 @@ async function foldersPageGet(req, res) {
 
 async function filesPageGet(req, res) {
     const folderID = Number(req.params.folderID);
-    const files = await prismaClient.getFiles(folderID);
-    res.render("files", {files: files})
+    const userID = req.user.id;
+
+    // read all files in that folder from supabase
+    const { data, error } = await supabase.storage.from('filespace')
+    .list(`public/${userID}/${folderID}`, {
+        sortBy: { column: 'name', order: 'asc' }});
+        console.log(data);
+
+        if (error) {
+            console.log(error)
+        }
+    
+    res.render("files", { files: data, userID: userID, folderID: folderID })
 }
 
 async function fileInfoPageGet(req, res) {
@@ -95,6 +110,46 @@ async function updateFolderPost(req, res) {
     res.redirect("/folders");
 }
 
+async function newFilePost(req, res) {
+    // define variables from params and from the multer step earlier
+    const folderID = Number(req.params.folderID);
+    const userID = req.user.id;
+    const file = req.file;
+    console.log(file);
+
+    // add metadata to our database
+    await prismaClient.addFile(folderID, userID, file);
+    console.log("file metadata added to db")
+
+
+    // upload file to supabase
+    const { data: uploadData, error: uploadError} = await supabase.storage.from('filespace')
+        .upload(`public/${userID}/${folderID}/${file.originalname}`, file.buffer, {
+            contentType: file.mimetype,
+            cacheControl: '3600',
+            upsert: false
+    })
+
+    if (uploadError) {
+        console.log(uploadError)
+    }
+
+    // otherwise continue
+    console.log("file uploaded to supabase")
+
+    // read all files in that folder from supabase
+    const { data, error } = await supabase.storage.from('filespace')
+    .list(`public/${userID}/${folderID}`, {
+        sortBy: { column: 'name', order: 'asc' }});
+        console.log(data);
+
+        if (error) {
+            console.log(error)
+        }
+    
+    res.render("files", { files: data, userID: userID, folderID: folderID })
+}
+
 module.exports = {
     indexPageGet,
     userSignUpPost,
@@ -109,5 +164,6 @@ module.exports = {
     deleteFolderPost,
     updateFolderPageGet,
     updateFolderPost,
-    fileInfoPageGet
+    fileInfoPageGet,
+    newFilePost
 }
