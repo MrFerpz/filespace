@@ -183,7 +183,7 @@ body {
     margin-bottom: 10px;
 }
 
-.delete-folder-btn, .update-folder-btn, .delete-file-btn, .update-file-btn {
+.delete-folder-btn, .update-folder-btn, .update-file-btn {
     text-decoration: none;
 }
 
@@ -272,9 +272,15 @@ body {
 }
 
 .file-img {
-    height: 226.52px;
-    width: 140px;
+    height: 150px;
+    width: 150px;
     object-fit: cover;
+    transition: 0.4s;
+}
+
+.file-img:hover {
+    opacity: 0.8;
+    transform: scale(1.02)
 }
 
 .file-text {
@@ -283,7 +289,53 @@ body {
 
 .file-card {
     padding: 10px;
+    height: 250px;
     box-shadow: 2px 2px lightgrey;
+}
+
+.file-buttons-container {
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.view-btn, .download-file-btn, .delete-file-btn {
+    text-decoration: none;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px;
+    margin: 2px;
+    border-radius: 2px;
+    box-shadow: 2px 2px lightgrey;
+    transition: 0.4s;
+}
+
+.view-btn {
+    background-color:rgb(0, 68, 253);
+}
+
+.view-btn:hover {
+    background-color: rgb(73, 121, 255);
+    transform: scale(1.02);
+}
+
+.download-file-btn {
+    background-color: green;
+}
+
+.download-file-btn:hover {
+    background-color: rgb(55, 176, 55);
+    transform: scale(1.02);
+}
+
+.delete-file-btn {
+    background-color: rgb(137, 0, 0);
+}
+
+.delete-file-btn:hover {
+    background-color: red;
+    transform: scale(1.02);
 }
 
 /* -------- */
