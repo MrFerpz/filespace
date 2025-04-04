@@ -64,6 +64,28 @@ async function newFolderPost(req, res) {
     res.render("folders", {folders: folders});
 }
 
+async function folderInfoPageGet(req, res) {
+    const folderID = Number(req.params.folderID);
+    const folder = await prismaClient.getFolderByID(folderID);
+    res.render("folder-info", {folder: folder})
+}
+
+async function deleteFolderPost(req, res) {
+    const folderID = Number(req.params.folderID);
+    const authorID = Number(req.user.id);
+    await prismaClient.deleteFolderByID(folderID);
+    const folders = await prismaClient.getFolders(authorID);
+    res.render("folders", {folders: folders});
+}
+
+// async function updateFolderGet(req, res) {
+
+// }
+
+// async function updateFolderPost(req, res) {
+
+// }
+
 module.exports = {
     indexPageGet,
     userSignUpPost,
@@ -73,5 +95,7 @@ module.exports = {
     loginSuccessPageGet,
     foldersPageGet,
     filesPageGet,
-    newFolderPost
+    newFolderPost,
+    folderInfoPageGet,
+    deleteFolderPost
 }

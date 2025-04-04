@@ -49,4 +49,32 @@ async function getFolders(authorID) {
   return folders
 }
 
-module.exports = { prisma, createUser, findUser, getUserByID, getFolders, newFolder }
+async function getFolderByID(folderID) {
+  const folder = await prisma.folders.findUnique({
+    where: {
+      id: folderID
+    },
+    include: {files: true}
+  })
+  return folder
+}
+
+async function deleteFolderByID(folderID) {
+  await prisma.folders.delete({
+    where : {
+      id: folderID
+    }
+  })
+  return
+}
+
+module.exports = { 
+  prisma,
+  createUser,
+  findUser,
+  getUserByID,
+  getFolders,
+  newFolder,
+  getFolderByID,
+  deleteFolderByID
+}

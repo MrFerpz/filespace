@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your FileSpace</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="title">FileSpace</div>
+        <a class="btn home-btn" href="/">Home</a>
+        <a class="btn files-btn" href="/folders">Your Files</a>
+        <% if(currentUser) { %>
+        <a class="btn logout-btn" href="/logout">Logout</a>
+         <% } %>
+    </div>
+
+    <div class="folder-info-grid-container">
+        <div class="folder-info-grid">
+            <b><div class="folder-info-grid-item">Title: </div></b>
+            <div class="folder-info-grid-item folder-data"><%= folder.title %></div>
+            <b><div class="folder-info-grid-item">Folder ID: </div></b>
+            <div class="folder-info-grid-item folder-data"><%= folder.id %></div>
+            <b><div class="folder-info-grid-item">Made on: </div></b>
+            <div class="folder-info-grid-item folder-data"><%= folder.createdAt %></div>
+            <b><div class="folder-info-grid-item">Last updated: </div></b>
+            <div class="folder-info-grid-item folder-data"><%= folder.updatedAt %></div>
+            <b><div class="folder-info-grid-item">Files contained: </div></b>
+            <div class="folder-info-grid-item folder-data"><%= folder.files.length %></div>
+            <div class="update-delete-btn-container">
+                <form method="get" action="/folders/folder-info/<%=folder.id%>/update" class="folder-update-btn-form"><button class="folder-update-btn" type="submit">Update Folder</button></form>
+                <form method="post" action="/folders/folder-info/<%=folder.id%>/delete" class="folder-delete-btn-form"><button class="folder-delete-btn" type="submit">Delete Folder</button></form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="separator"></div>
+    <a href="/">Back to your folders</a>
+
+</body>
+</html>

@@ -24,10 +24,13 @@ router.get("/login-fail", controller.loginFailPageGet);
 router.get("/login-success", controller.loginSuccessPageGet);
 router.get("/folders", checkAuthentication, controller.foldersPageGet);
 router.get("/folders/:foldername", controller.filesPageGet)
+router.get("/folders/folder-info/:folderID", controller.folderInfoPageGet);
+// router.get("/folders/update/:folderID", controller.folderUpdatePageGet);
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);
 router.post("/new-file", upload.single('upload-file'), controller.filesPageGet);
 router.post("/folders", controller.newFolderPost);
+router.post("/folders/folder-info/:folderID/delete", controller.deleteFolderPost);
 
 module.exports = router
