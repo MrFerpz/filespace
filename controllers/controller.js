@@ -28,12 +28,16 @@ async function foldersPageGet(req, res) {
     res.render("folders", {folders: folders});
 }
 
-function filesPageGet(req, res) {
-    const title = req.params.foldername;
-    res.render("files",
-    // replace with DB call shortly
-    {files: ["bob paisley"],
-    title: title})
+async function filesPageGet(req, res) {
+    const folderID = Number(req.params.folderID);
+    const files = await prismaClient.getFiles(folderID);
+    res.render("files", {files: files})
+}
+
+async function fileInfoPageGet(req, res) {
+    const fileID = Number(req.params.fileID);
+    const file = await prismaClient.getFile(fileID);
+    res.render("file-info", {file: file})
 }
 
 //---------------------------//
@@ -104,5 +108,6 @@ module.exports = {
     folderInfoPageGet,
     deleteFolderPost,
     updateFolderPageGet,
-    updateFolderPost
+    updateFolderPost,
+    fileInfoPageGet
 }

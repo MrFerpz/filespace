@@ -16,8 +16,6 @@
          <% } %>
     </div>
 
-    <div><%= title %> folder</div>
-
     <% if (!files) { %>
         <div>Nothing to see here!</div>
         <div class="separator"></div>
@@ -29,7 +27,7 @@
         <div class="file-grid">
             <% files.forEach((file) => { %>
                 <div class="file-card">
-                    <a href="files/folder/<%= file %>"><img class="file-img" src="/static/file.png"></a>
+                    <a href="/info/<%= file.id %>/<%= file.title%>"><img class="file-img" src="/static/file.png"></a>
                     <div class="file-text"><%= file %></div>
                 </div>
             <% }) %>

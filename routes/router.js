@@ -23,9 +23,10 @@ router.get("/login", controller.loginPageGet);
 router.get("/login-fail", controller.loginFailPageGet);
 router.get("/login-success", controller.loginSuccessPageGet);
 router.get("/folders", checkAuthentication, controller.foldersPageGet);
-router.get("/folders/:foldername", controller.filesPageGet)
+router.get("/folders/:folderTitle/:folderID", controller.filesPageGet)
 router.get("/folders/folder-info/:folderID", controller.folderInfoPageGet);
 router.get("/folders/folder-info/:folderID/update/", controller.updateFolderPageGet);
+router.get("/info/:fileID/:fileTitle", controller.fileInfoPageGet);
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);

@@ -79,6 +79,20 @@ async function updateFolderTitle(folderID, newTitle) {
   })
 }
 
+async function getFiles(folderID) {
+  const files = await prisma.files.findMany({
+    where: { parentFolderID: folderID }
+  })
+  return files
+}
+
+async function getFile(fileID) {
+  const file = await prisma.files.findUnique({
+    where: { id: fileID }
+  })
+  return file
+}
+
 module.exports = { 
   prisma,
   createUser,
@@ -88,5 +102,7 @@ module.exports = {
   newFolder,
   getFolderByID,
   deleteFolderByID,
-  updateFolderTitle
+  updateFolderTitle,
+  getFiles,
+  getFile
 }

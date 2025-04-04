@@ -26,7 +26,7 @@
         <div class="folder-grid">
             <% folders.forEach((folder) => { %>
                 <div class="folder-card">
-                    <a href="/folders/<%= folder.title %>"><img class="folder-img" src="/static/folder.png"></a>
+                    <a href="/folders/<%= folder.title %>/<%= folder.id %>"><img class="folder-img" src="/static/folder.png"></a>
                     <div class="folder-text"><%= folder.title %></div>
                     <a class="folder-info-btn" href="/folders/folder-info/<%= folder.id %>"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Bookmark-Manager-Fill--Streamline-Sharp-Fill-Material" height="24" width="24"><desc>Bookmark Manager Fill Streamline Icon: https://streamlinehq.com</desc><path fill="#0382fa" d="M14 22v-3.075l6.575 -6.55 3.05 3.05L17.075 22H14Zm6.575 -5.6L21.5 15.425 20.575 14.5l-0.95 0.95 0.95 0.95ZM2 20V4h8.525l1.5 1.5H22v3.35L12.5 18.3V20H2Z" stroke-width="0.5"></path></svg></a>
                 </div>
