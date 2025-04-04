@@ -28,10 +28,6 @@ async function foldersPageGet(req, res) {
     res.render("folders", {folders: folders});
 }
 
-function newFolderGet(req, res) {
-    res.render("new-folder")
-}
-
 function filesPageGet(req, res) {
     const title = req.params.foldername;
     res.render("files",
@@ -65,7 +61,7 @@ async function newFolderPost(req, res) {
     await prismaClient.newFolder(authorID, title);
     const folders = await prismaClient.getFolders(authorID);
     console.log(folders);
-    res.render("folders", {folders: folders})
+    res.render("folders", {folders: folders});
 }
 
 module.exports = {
@@ -77,6 +73,5 @@ module.exports = {
     loginSuccessPageGet,
     foldersPageGet,
     filesPageGet,
-    newFolderGet,
     newFolderPost
 }

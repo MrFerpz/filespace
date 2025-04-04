@@ -44,7 +44,8 @@ async function newFolder(authorID, title) {
 async function getFolders(authorID) {
   const folders = await prisma.folders.findMany({
     where: {authorID: authorID}
-  })
+  }
+  )
   return folders
 }
 

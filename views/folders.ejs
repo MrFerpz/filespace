@@ -26,7 +26,7 @@
         <div class="folder-grid">
             <% folders.forEach((folder) => { %>
                 <div class="folder-card">
-                    <a href="files/folder/<%= folder.title %>"><img class="folder-img" src="/static/folder.png"></a>
+                    <a href="/folders/<%= folder.title %>"><img class="folder-img" src="/static/folder.png"></a>
                     <div class="folder-text"><%= folder.title %></div>
                 </div>
             <% }) %>
@@ -36,10 +36,13 @@
     
     <div class="separator"></div>
 
-    <form method="post" action="/new-folder">
+    <div class="folder-form-container">
+    <form method="post">
         <label for="title">Title</label>
         <input name="title">
-        <button type="submit">Add new folder</button>
+        <button class="new-folder-button" type="submit">Add new folder</button>
     </form>
+    </div>
+
 </body>
 </html>
