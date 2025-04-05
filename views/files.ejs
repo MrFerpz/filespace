@@ -31,8 +31,7 @@
                     <div class="file-text"><b><%= file.name %></b></div>
                     <div class="file-buttons-container">
                         <a class = "view-btn" href="<%= folderID %>/<%= file.name %>">View</a>
-                        <a class = "download-file-btn" href="https://gryfrcvamurkjwmrrfxz.supabase.co/storage/v1/object/public/filespace/public/<%=userID%>/<%=folderID%>/<%=file.name%>" download="<%=file.name%>">Download</a>
-                        <a class = "delete-file-btn" href="delete">Delete</a>
+                        <form method="post" action="<%= folderID %>/<%=file.name %>/delete" class="file-delete-btn-form"><button class="file-delete-btn" type="submit">Delete file</button></form>
                     </div>
                 </div>
             <% }) %>

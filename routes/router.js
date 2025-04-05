@@ -26,7 +26,8 @@ router.get("/folders", checkAuthentication, controller.foldersPageGet);
 router.get("/folders/:folderTitle/:folderID", controller.filesPageGet)
 router.get("/folders/folder-info/:folderID", controller.folderInfoPageGet);
 router.get("/folders/folder-info/:folderID/update/", controller.updateFolderPageGet);
-router.get("/folders/:folderTitle/:folderID/:fileName", controller.fileInfoPageGet)
+router.get("/folders/:folderTitle/:folderID/:fileName", controller.fileInfoPageGet);
+router.get("/folders/:folderTitle/:folderID/:fileName/update", controller.updateFilePageGet);
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);
@@ -34,6 +35,8 @@ router.post("/folders/:folderTitle/:folderID", upload.single('upload-file'), con
 router.post("/folders", controller.newFolderPost);
 router.post("/folders/folder-info/:folderID/delete", controller.deleteFolderPost);
 router.post("/folders/folder-info/:folderID/update/", controller.updateFolderPost);
+router.post("/folders/:folderTitle/:folderID/:fileName/update", controller.updateFilePost)
+router.post("/folders/:folderTitle/:folderID/:fileName/delete", controller.deleteFilePost)
 
 
 module.exports = router

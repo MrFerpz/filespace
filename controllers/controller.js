@@ -68,6 +68,26 @@ async function fileInfoPageGet(req, res) {
     res.render("file-info", { file: file, userID : userID, folderID: folderID });
 }
 
+async function updateFilePageGet(req, res) {
+    const fileName = req.params.fileName;
+    const userID = req.user.id;
+    const folderID = req.params.folderID;
+
+    const { data, error } = await supabase.storage.from('filespace').list(`public/${userID}/${folderID}`);
+
+    if (error) {
+        console.error(error);
+        return res.status(500).send("Could not list files");
+    }
+
+    const file = data.find(f => f.name === fileName);
+    if (!file) {
+        return res.status(404).send("File not found");
+    }
+
+    res.render("update-file", { file: file, userID : userID, folderID: folderID })
+}
+
 //---------------------------//
 
 // POST requests
@@ -122,6 +142,73 @@ async function updateFolderPost(req, res) {
     await prismaClient.updateFolderTitle(folderID, newTitle);
     res.redirect("/folders");
 }
+
+async function updateFilePost(req, res) {
+    const newTitle = req.body.fileTitle;
+    const oldTitle = req.params.fileName;
+    const folderID = req.params.folderID;
+    const folderName = req.params.folderName;
+    const userID = req.user.id;
+
+    const bucket = 'filespace';
+    const oldPath = `public/${userID}/${folderID}/${oldTitle}`;
+    const newPath = `public/${userID}/${folderID}/${newTitle}`;
+    
+        try {
+            // download the file
+            const { data: fileData, error: downloadError } = await supabase.storage
+                .from(bucket)
+                .download(oldPath);
+    
+            if (downloadError) {
+                console.error("Download error:", downloadError);
+                return res.status(500).send("Error downloading original file.");
+            }
+    
+            // upload it to the new location
+            const { error: uploadError } = await supabase.storage
+                .from(bucket)
+                .upload(newPath, fileData, {
+                    contentType: 'application/octet-stream', // generic, or adjust based on type if stored
+                    upsert: false
+                });
+    
+            if (uploadError) {
+                console.error("Upload error:", uploadError);
+                return res.status(500).send("Error uploading file with new name.");
+            }
+    
+            // Step 3: delete the old file
+            const { error: deleteError } = await supabase.storage
+                .from(bucket)
+                .remove([oldPath]);
+    
+            if (deleteError) {
+                console.error("Delete error:", deleteError);
+                return res.status(500).send("File uploaded but failed to delete original.");
+            }
+    
+            // redirect to files page
+            res.redirect(`/folders/${folderName}/${folderID}`);
+    
+        } catch (err) {
+            console.error("Unexpected error:", err);
+            res.status(500).send("Unexpected server error.");
+        }
+    }
+    
+async function deleteFilePost(req, res) {
+    const folderID = req.params.folderID;
+    const folderName = req.params.folderName;
+    const userID = req.user.id;
+    const filename = req.params.fileName;
+
+    const { data: fileData, error: downloadError } = await supabase.storage
+                .from('filespace').remove(`public/${userID}/${folderID}/${filename}`);
+
+    res.redirect(`/folders/${folderName}/${folderID}`)
+}
+
 
 async function newFilePost(req, res) {
     // define variables from params and from the multer step earlier
@@ -182,5 +269,8 @@ module.exports = {
     updateFolderPageGet,
     updateFolderPost,
     fileInfoPageGet,
-    newFilePost
+    newFilePost,
+    updateFilePageGet,
+    updateFilePost,
+    deleteFilePost
 }
