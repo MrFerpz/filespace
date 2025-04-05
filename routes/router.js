@@ -26,7 +26,7 @@ router.get("/folders", checkAuthentication, controller.foldersPageGet);
 router.get("/folders/:folderTitle/:folderID", controller.filesPageGet)
 router.get("/folders/folder-info/:folderID", controller.folderInfoPageGet);
 router.get("/folders/folder-info/:folderID/update/", controller.updateFolderPageGet);
-router.get("/info/:fileID/:fileTitle", controller.fileInfoPageGet);
+router.get("/folders/:folderTitle/:folderID/:fileName", controller.fileInfoPageGet)
 
 // POST requests
 router.post("/signup", controller.userSignUpPost);

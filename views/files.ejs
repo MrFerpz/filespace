@@ -30,7 +30,7 @@
                     <a href="https://gryfrcvamurkjwmrrfxz.supabase.co/storage/v1/object/public/filespace/public/<%=userID%>/<%=folderID%>/<%=file.name%>"><img class="file-img" src="https://gryfrcvamurkjwmrrfxz.supabase.co/storage/v1/object/public/filespace/public/<%=userID%>/<%=folderID%>/<%=file.name%>"></a>
                     <div class="file-text"><b><%= file.name %></b></div>
                     <div class="file-buttons-container">
-                        <a class = "view-btn" href="view">View</a>
+                        <a class = "view-btn" href="<%= folderID %>/<%= file.name %>">View</a>
                         <a class = "download-file-btn" href="https://gryfrcvamurkjwmrrfxz.supabase.co/storage/v1/object/public/filespace/public/<%=userID%>/<%=folderID%>/<%=file.name%>" download="<%=file.name%>">Download</a>
                         <a class = "delete-file-btn" href="delete">Delete</a>
                     </div>

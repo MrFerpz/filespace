@@ -19,15 +19,15 @@
     <div class="file-info-grid-container">
         <div class="file-info-grid">
             <b><div class="file-info-grid-item">Title: </div></b>
-            <div class="file-info-grid-item file-data"><%= file.title %></div>
+            <div class="file-info-grid-item file-data"><%= file.name %></div>
             <b><div class="file-info-grid-item">File ID: </div></b>
             <div class="file-info-grid-item file-data"><%= file.id %></div>
             <b><div class="file-info-grid-item">Made on: </div></b>
-            <div class="file-info-grid-item file-data"><%= file.createdAt %></div>
+            <div class="file-info-grid-item file-data"><%= file.created_at %></div>
             <b><div class="file-info-grid-item">Last updated: </div></b>
-            <div class="file-info-grid-item file-data"><%= file.updatedAt %></div>
-            <b><div class="file-info-grid-item">File URL: </div></b>
-            <div class="file-info-grid-item file-data"><%= file.url %></div>
+            <div class="file-info-grid-item file-data"><%= file.updated_at %></div>
+            <b><div class="file-info-grid-item">File size: </div></b>
+            <div class="file-info-grid-item file-data"><%= file.metadata.size %></div>
             <div class="update-delete-btn-container">
                 <form method="get" action="/files/file-info/<%=file.id%>/download" class="file-download-btn-form"><button class="file-download-btn" type="submit">Download</button></form>
                 <form method="get" action="/files/file-info/<%=file.id%>/update" class="file-update-btn-form"><button class="file-update-btn" type="submit">Update file</button></form>

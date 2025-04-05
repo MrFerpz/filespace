@@ -86,9 +86,9 @@ async function getFiles(folderID) {
   return files
 }
 
-async function getFile(fileID) {
+async function getFile(fileName) {
   const file = await prisma.files.findUnique({
-    where: { id: fileID }
+    where: { title: fileName }
   })
   return file
 }

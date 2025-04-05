@@ -40,7 +40,6 @@ async function filesPageGet(req, res) {
     const { data, error } = await supabase.storage.from('filespace')
     .list(`public/${userID}/${folderID}`, {
         sortBy: { column: 'name', order: 'asc' }});
-        console.log(data);
 
         if (error) {
             console.log(error)
@@ -50,9 +49,23 @@ async function filesPageGet(req, res) {
 }
 
 async function fileInfoPageGet(req, res) {
-    const fileID = Number(req.params.fileID);
-    const file = await prismaClient.getFile(fileID);
-    res.render("file-info", {file: file})
+    const fileName = req.params.fileName;
+    const userID = req.user.id;
+    const folderID = req.params.folderID;
+
+    const { data, error } = await supabase.storage.from('filespace').list(`public/${userID}/${folderID}`);
+
+    if (error) {
+        console.error(error);
+        return res.status(500).send("Could not list files");
+    }
+
+    const file = data.find(f => f.name === fileName);
+    if (!file) {
+        return res.status(404).send("File not found");
+    }
+
+    res.render("file-info", { file });
 }
 
 //---------------------------//
@@ -115,19 +128,18 @@ async function newFilePost(req, res) {
     const folderID = Number(req.params.folderID);
     const userID = req.user.id;
     const file = req.file;
-    console.log(file);
 
-    // add metadata to our database
+    // add metadata to prisma DB and assign file ID
     await prismaClient.addFile(folderID, userID, file);
     console.log("file metadata added to db")
-
 
     // upload file to supabase
     const { data: uploadData, error: uploadError} = await supabase.storage.from('filespace')
         .upload(`public/${userID}/${folderID}/${file.originalname}`, file.buffer, {
             contentType: file.mimetype,
             cacheControl: '3600',
-            upsert: false
+            upsert: false,
+
     })
 
     if (uploadError) {
@@ -141,13 +153,18 @@ async function newFilePost(req, res) {
     const { data, error } = await supabase.storage.from('filespace')
     .list(`public/${userID}/${folderID}`, {
         sortBy: { column: 'name', order: 'asc' }});
-        console.log(data);
 
         if (error) {
             console.log(error)
         }
     
-    res.render("files", { files: data, userID: userID, folderID: folderID })
+    console.log(data);
+
+    res.render("files", { 
+        files: data, 
+        userID: userID, 
+        folderID: folderID,
+     })
 }
 
 module.exports = {
