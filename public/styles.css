@@ -189,7 +189,7 @@ body {
 
 .folder-info-grid-container, .file-info-grid-container {
     display: flex;
-    height: 80vh;
+    height: 60vh;
     justify-content: center;
     align-items: center;
 }
@@ -253,14 +253,17 @@ body {
     cursor:pointer;
 }
 
+.btns-container {
+    display: flex;
+    justify-content: center;
+}
+
 .update-delete-btn-container {
-    grid-column: 1 / 3;
     display: grid;
-    position: relative;
-    top: 10px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     height: 50px;
+    width: 50%;
     align-items: center;
     justify-content: center;
 }
@@ -338,4 +341,21 @@ body {
     transform: scale(1.02);
 }
 
-/* -------- */
+.file-download-btn {
+    background-color: rgb(38, 125, 1);
+    color: white;
+    padding: 5px;
+    text-align: center;
+    border-radius: 3px;
+    transition: 0.3s;
+    align-self: center;
+    margin: 5px auto;
+    width: 95%;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.file-download-btn:hover {
+    background-color: rgb(38, 153, 0);
+    cursor: pointer;
+}

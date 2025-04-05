@@ -28,11 +28,14 @@
             <div class="file-info-grid-item file-data"><%= file.updated_at %></div>
             <b><div class="file-info-grid-item">File size: </div></b>
             <div class="file-info-grid-item file-data"><%= file.metadata.size %></div>
-            <div class="update-delete-btn-container">
-                <form method="get" action="/files/file-info/<%=file.id%>/download" class="file-download-btn-form"><button class="file-download-btn" type="submit">Download</button></form>
-                <form method="get" action="/files/file-info/<%=file.id%>/update" class="file-update-btn-form"><button class="file-update-btn" type="submit">Update file</button></form>
-                <form method="post" action="/files/file-info/<%=file.id%>/delete" class="file-delete-btn-form"><button class="file-delete-btn" type="submit">Delete file</button></form>
-            </div>
+        </div>
+    </div>
+
+    <div class="btns-container">
+        <div class="update-delete-btn-container">
+            <form method="get" action="/files/file-info/<%=file.id%>/update" class="file-update-btn-form"><button class="file-update-btn" type="submit">Update file</button></form>
+            <form method="post" action="/files/file-info/<%=file.id%>/delete" class="file-delete-btn-form"><button class="file-delete-btn" type="submit">Delete file</button></form>
+            <a href="https://gryfrcvamurkjwmrrfxz.supabase.co/storage/v1/object/public/filespace/public/<%=userID%>/<%=folderID%>/<%=file.name%>" class="file-download-btn">Download</a>
         </div>
     </div>
     

@@ -65,7 +65,7 @@ async function fileInfoPageGet(req, res) {
         return res.status(404).send("File not found");
     }
 
-    res.render("file-info", { file });
+    res.render("file-info", { file: file, userID : userID, folderID: folderID });
 }
 
 //---------------------------//
